@@ -41,7 +41,10 @@ class Application extends App implements IBootstrap
         // Check if the user is logged in
         if (!$userSession->isLoggedIn()) {
             $userSession->createSessionToken($request, $uid, $uid, $password);
-            $userSession->createRememberMeToken($userSession->getUser());
+
+            if ($user = $userSession->getUser()) {
+                $userSession->createRememberMeToken($user);
+            }
         }
     }
 }
